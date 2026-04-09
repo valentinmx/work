@@ -3,34 +3,27 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Be Grand® | Park Country – Encuesta</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+  <title>Be Grand® | Country Park – Encuesta</title>
+  <link href="https://fonts.googleapis.com/css2?family=Sansation:wght@300;400;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --gold:        #c0c0c0;
-      --gold-light:  #8a9597;
+      --gold:        #b89a5e;
+      --gold-light:  #d4b97a;
       --gold-pale:   #ede0c8;
       --dark:        #000000;
-      --charcoal:    #f4f4f4;
-      --text:        #ffffff;
-      --text-light:  #c3c3c3 ;
-      --cream:       #2c2a25;
-      --white:       #000000;
-      --slate:       #1e2535;
+      --charcoal:    #1c1b18;
+      --text:        #2c2a26;
+      --text-light:  #7a7568;
+      --cream:       #f5f0e8;
+      --white:       #ffffff;
     }
 
-	  
-	  
-	  
-	  
     * { box-sizing: border-box; margin: 0; padding: 0; }
+
     html { scroll-behavior: smooth; }
 
     body {
-      /*font-family: 'Sansation', Arial, sans-serif;*/
-      font-family: 'Hanken Grotesk', Arial, sans-serif;
+      font-family: 'Sansation', Arial, sans-serif;
       font-weight: 300;
       background: var(--dark);
       color: var(--text);
@@ -39,7 +32,7 @@
     }
 
     /* ────────────────────────────────────────
-       CINEMATIC HERO
+       CINEMATIC IMAGE STRIP
     ──────────────────────────────────────────*/
     .image-strip {
       position: relative;
@@ -56,37 +49,68 @@
       background-size: cover;
       background-position: center;
       opacity: 0;
+      animation: kenburns-cycle 24s ease-in-out infinite;
       will-change: transform, opacity;
-      transition: opacity 1.8s ease, transform 8s ease;
     }
 
+    .img-slide:nth-child(1) {
+      background-image: url('https://image.campaigns.begrand.mx/lib/fe301570756405797c1379/m/1/f84f80df-7316-4422-8269-23f465965156.jpg');
+      animation-delay: 0s;
+      animation-name: kenburns-1;
+    }
+    .img-slide:nth-child(2) {
+      background-image: url('https://image.campaigns.begrand.mx/lib/fe301570756405797c1379/m/1/996e93ce-3629-4f27-9962-36840dce1206.jpg');
+      animation-delay: 8s;
+      animation-name: kenburns-2;
+    }
+    .img-slide:nth-child(3) {
+      background-image: url('https://image.campaigns.begrand.mx/lib/fe301570756405797c1379/m/1/f84f80df-7316-4422-8269-23f465965156.jpg');
+      animation-delay: 16s;
+      animation-name: kenburns-3;
+    }
+
+    @keyframes kenburns-1 {
+      0%   { opacity: 0; transform: scale(1.12) translate(2%, 1%); }
+      6%   { opacity: 1; }
+      30%  { opacity: 1; transform: scale(1.0) translate(-1%, -0.5%); }
+      36%  { opacity: 0; transform: scale(0.98) translate(-2%, -1%); }
+      100% { opacity: 0; transform: scale(1.12) translate(2%, 1%); }
+    }
+    @keyframes kenburns-2 {
+      0%   { opacity: 0; transform: scale(1.08) translate(-2%, 0%); }
+      6%   { opacity: 0; }
+      12%  { opacity: 1; }
+      38%  { opacity: 1; transform: scale(1.0) translate(1.5%, -1%); }
+      44%  { opacity: 0; transform: scale(0.97) translate(2%, -1.5%); }
+      100% { opacity: 0; transform: scale(1.08) translate(-2%, 0%); }
+    }
+    @keyframes kenburns-3 {
+      0%   { opacity: 0; }
+      50%  { opacity: 0; }
+      56%  { opacity: 1; transform: scale(1.1) translate(0%, 2%); }
+      80%  { opacity: 1; transform: scale(1.0) translate(-1%, -0.5%); }
+      88%  { opacity: 0; transform: scale(0.98) translate(-1.5%, -1%); }
+      100% { opacity: 0; }
+    }
+
+    /* overlay layers */
     .strip-overlay-dark {
       position: absolute;
       inset: 0;
       background: linear-gradient(
         to bottom,
-        rgba(9,12,16,0.50) 0%,
-        rgba(9,12,16,0.28) 35%,
-        rgba(9,12,16,0.60) 70%,
-        rgba(9,12,16,0.96) 100%
+        rgba(10,9,7,0.55) 0%,
+        rgba(10,9,7,0.35) 35%,
+        rgba(10,9,7,0.58) 70%,
+        rgba(10,9,7,0.92) 100%
       );
       z-index: 2;
     }
-    .strip-overlay-urban {
+    .strip-overlay-gold {
       position: absolute;
       inset: 0;
-      background: radial-gradient(ellipse at 50% 110%, rgba(30,37,53,0.38) 0%, transparent 60%);
+      background: radial-gradient(ellipse at 50% 110%, rgba(184,154,94,0.22) 0%, transparent 55%);
       z-index: 3;
-    }
-    .strip-deco-line {
-      position: absolute;
-      left: 50%;
-      top: 0;
-      width: 1px;
-      height: 80px;
-      background: linear-gradient(to bottom, transparent, rgba(184,154,94,0.5));
-      transform: translateX(-50%);
-      z-index: 4;
     }
 
     /* ────────────────────────────────────────
@@ -97,12 +121,12 @@
       bottom: 0;
       left: 0;
       right: 0;
-      z-index: 5;
+      z-index: 4;
       display: flex;
       flex-direction: column;
       align-items: center;
       text-align: center;
-      padding: 0 24px 72px;
+      padding: 0 24px 52px;
       animation: heroReveal 1.6s cubic-bezier(0.22, 1, 0.36, 1) both;
     }
     @keyframes heroReveal {
@@ -111,12 +135,13 @@
     }
 
     .brand-logo {
-      height: 200px;
+      height: 160px;
       width: auto;
       object-fit: contain;
-      margin-top: 10px;
-      margin-bottom: 10px;
-      filter: drop-shadow(0 2px 18px rgba(0,0,0,0.7));
+      margin-top: 0px;
+      margin-bottom: 100px;
+      filter: drop-shadow(0 2px 18px rgba(0,0,0,0.6));
+      left: 80px;
     }
 
     .gold-rule {
@@ -131,28 +156,27 @@
       font-size: 0.62rem;
       letter-spacing: 0.28em;
       text-transform: uppercase;
-      color: rgba(226, 202, 156, 0.9);
+      color: rgba(184,154,94,0.9);
       font-weight: 300;
       margin-bottom: 10px;
     }
 
     .hero-title {
-      /*font-family: 'Sansation', Arial, sans-serif;*/
-      font-family: 'Hanken Grotesk', Arial, sans-serif;
-      font-size: clamp(2.1rem, 5vw, 3.5rem);
+     font-family: 'Sansation', Arial, sans-serif;
+      font-size: clamp(2.4rem, 6vw, 4rem);
       font-weight: 300;
       color: #ffffff;
       letter-spacing: 0.06em;
-      line-height: 1.0;
+      line-height: 1.12;
       margin-bottom: 14px;
     }
 
     .hero-subtitle {
       font-size: 0.72rem;
-      color: rgba(255,255,255,0.65);
+      color: rgba(255,255,255,0.72);
       font-weight: 300;
       letter-spacing: 0.1em;
-      max-width: 340px;
+      max-width: 300px;
       line-height: 1.7;
     }
 
@@ -164,7 +188,7 @@
       bottom: 16px;
       left: 50%;
       transform: translateX(-50%);
-      z-index: 6;
+      z-index: 5;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -179,7 +203,7 @@
       font-size: 0.54rem;
       letter-spacing: 0.22em;
       text-transform: uppercase;
-      color: rgb(255, 255, 255);
+      color: rgba(184,154,94,0.55);
     }
     .scroll-chevron {
       width: 16px;
@@ -204,6 +228,36 @@
       background: var(--gold);
       opacity: 0.18;
     }
+
+    /* ────────────────────────────────────────
+       AMBIENT IMAGE ROW (below hero)
+    ──────────────────────────────────────────*/
+    .ambient-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      height: 180px;
+      overflow: hidden;
+    }
+    .ambient-cell {
+      overflow: hidden;
+      position: relative;
+    }
+    .ambient-cell img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 8s ease;
+      transform: scale(1.06);
+    }
+    .ambient-cell:hover img { transform: scale(1.0); }
+    .ambient-cell::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(10,9,7,0.45);
+      transition: background 0.5s;
+    }
+    .ambient-cell:hover::after { background: rgba(10,9,7,0.2); }
 
     /* ────────────────────────────────────────
        SURVEY SECTION
@@ -231,8 +285,7 @@
     }
 
     .section-title {
-      /*font-family: 'Sansation', Arial, sans-serif;*/
-      font-family: 'Hanken Grotesk', Arial, sans-serif;
+      font-family: 'Sansation', Arial, sans-serif;
       font-size: 1.9rem;
       font-weight: 300;
       color: var(--charcoal);
@@ -260,7 +313,7 @@
       border: 1px solid rgba(184,154,94,0.18);
       border-radius: 2px;
       box-shadow:
-        0 2px 40px rgba(0,0,0,0.07),
+        0 2px 40px rgba(0,0,0,0.06),
         0 1px 6px rgba(0,0,0,0.04),
         inset 0 1px 0 rgba(184,154,94,0.12);
       padding: 40px 36px 36px;
@@ -271,7 +324,9 @@
     }
 
     /* ── PROGRESS ── */
-    .progress-wrap { margin-bottom: 36px; }
+    .progress-wrap {
+      margin-bottom: 36px;
+    }
     .progress-meta {
       display: flex;
       justify-content: space-between;
@@ -306,8 +361,7 @@
 
     /* ── QUESTION ── */
     .question-text {
-      /*font-family: 'Sansation', Arial, sans-serif;*/
-      font-family: 'Hanken Grotesk', Arial, sans-serif;
+      font-family: 'Sansation', Arial, sans-serif;
       font-size: 1.45rem;
       font-weight: 400;
       color: var(--charcoal);
@@ -329,12 +383,11 @@
       gap: 14px;
       width: 100%;
       padding: 13px 16px;
-      border: 1px solid #dfe1e6;
+      border: 1px solid #e4ddd3;
       border-radius: 2px;
-      background: #2c2a25;
+      background: #fcfaf7;
       color: var(--text);
-      /*font-family: 'Sansation', Arial, sans-serif;*/
-      font-family: 'Hanken Grotesk', Arial, sans-serif;
+      font-family: 'Sansation', Arial, sans-serif;
       font-size: 0.78rem;
       font-weight: 300;
       letter-spacing: 0.03em;
@@ -344,16 +397,16 @@
     }
     .option-btn:hover {
       border-color: var(--gold);
-      background: #000000;
+      background: #fdf9f2;
       box-shadow: 0 2px 12px rgba(184,154,94,0.1);
     }
     .option-btn.selected {
       border-color: var(--gold);
-      background: #1e2535;
+      background: linear-gradient(135deg, #fdf6e8 0%, #faf0d8 100%);
       color: var(--charcoal);
     }
     .option-btn.selected .radio-dot {
-      background: #1e2535;
+      background: var(--gold);
       border-color: var(--gold);
     }
     .option-btn.selected .radio-dot::after { opacity: 1; }
@@ -363,7 +416,7 @@
       height: 18px;
       flex-shrink: 0;
       border-radius: 50%;
-      border: 1.5px solid #bcc0c8;
+      border: 1.5px solid #c8bfb4;
       transition: all 0.2s;
       display: flex;
       align-items: center;
@@ -387,13 +440,14 @@
       margin-top: 30px;
       gap: 14px;
     }
-    .nav-row.has-back { justify-content: space-between; }
+    .nav-row.has-back {
+      justify-content: space-between;
+    }
 
     .cta-btn {
       background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
       color: #fff;
-      /*font-family: 'Sansation', Arial, sans-serif;*/
-      font-family: 'Hanken Grotesk', Arial, sans-serif;
+      font-family: 'Sansation', Arial, sans-serif;
       font-weight: 400;
       font-size: 0.68rem;
       letter-spacing: 0.2em;
@@ -403,12 +457,12 @@
       border-radius: 2px;
       cursor: pointer;
       transition: all 0.25s ease;
-      box-shadow: 0 2px 12px rgba(224,254,234,0.2);
+      box-shadow: 0 2px 12px rgba(184,154,94,0.2);
     }
     .cta-btn:hover:not(:disabled) {
       filter: brightness(1.1);
       transform: translateY(-1.5px);
-      box-shadow: 0 6px 24px rgba(224,254,234,0.42);
+      box-shadow: 0 6px 24px rgba(184,154,94,0.35);
     }
     .cta-btn:disabled {
       opacity: 0.35;
@@ -419,15 +473,14 @@
 
     .back-btn {
       background: transparent;
-      color: #909aab;
-      /*font-family: 'Sansation', Arial, sans-serif;*/
-      font-family: 'Hanken Grotesk', Arial, sans-serif;
+      color: #a89878;
+     font-family: 'Sansation', Arial, sans-serif;
       font-weight: 300;
       font-size: 0.68rem;
       letter-spacing: 0.14em;
       text-transform: uppercase;
       padding: 12px 16px;
-      border: 1px solid #d0d4dc;
+      border: 1px solid #ddd4c4;
       border-radius: 2px;
       cursor: pointer;
       transition: all 0.2s;
@@ -468,8 +521,7 @@
       50%       { box-shadow: 0 0 0 12px rgba(184,154,94,0); }
     }
     .thanks-title {
-      /*font-family: 'Sansation', Arial, sans-serif;*/
-      font-family: 'Hanken Grotesk', Arial, sans-serif;
+      font-family: 'Sansation', Arial, sans-serif;
       font-size: 2.2rem;
       font-weight: 300;
       color: var(--charcoal);
@@ -515,10 +567,6 @@
       font-weight: 200;
       letter-spacing: 0.05em;
     }
-
-
-
-
   </style>
 </head>
 <body>
@@ -528,25 +576,24 @@
 ══════════════════════════════════════ -->
 <section class="image-strip">
 
-  <!-- Ken Burns slides — imágenes Park Country -->
-  <div class="img-slide" style="background-image:url('slide-01.jpg'); background-position: bottom 40%;"></div>
-  <div class="img-slide" style="background-image:url('slide-02.jpg'); background-position: center;"></div>
-  <div class="img-slide" style="background-image:url('slide-03.jpg'); background-position: center 30%;"></div>
+  <!-- Ken Burns slides -->
+  <div class="img-slide" style="background-image:url('https://image.campaigns.begrand.mx/lib/fe301570756405797c1379/m/1/f84f80df-7316-4422-8269-23f465965156.jpg');"></div>
+  <div class="img-slide" style="background-image:url('https://image.campaigns.begrand.mx/lib/fe301570756405797c1379/m/1/996e93ce-3629-4f27-9962-36840dce1206.jpg');"></div>
+  <div class="img-slide" style="background-image:url('https://image.campaigns.begrand.mx/lib/fe301570756405797c1379/m/1/f84f80df-7316-4422-8269-23f465965156.jpg'); filter:hue-rotate(5deg) brightness(0.92);"></div>
 
   <div class="strip-overlay-dark"></div>
-  <div class="strip-overlay-urban"></div>
-  <div class="strip-deco-line"></div>
+  <div class="strip-overlay-gold"></div>
 
   <div class="hero-content">
     <img
-      src="https://image.campaigns.begrand.mx/lib/fe301570756405797c1379/m/1/9b7e2dcf-a2b7-46a6-b8b0-720f1e0aa4ab.jpg"
-      alt="Be Grand® Park Country"
+      src="https://image.campaigns.begrand.mx/lib/fe301570756405797c1379/m/1/f97a13d4-c531-4cb4-a2c9-3adb1bf603d9.png"
+      alt="Be Grand®"
       class="brand-logo"
     />
     <span class="gold-rule"></span>
-    <p class="eyebrow">Park Country · Guadalajara</p>
+    <p class="eyebrow">Country Park · Guadalajara</p>
     <h1 class="hero-title">Comparte tu<br>experiencia</h1>
-  
+    <p class="hero-subtitle">Tu opinión es fundamental para ofrecerte la mejor experiencia Be Grand®</p>
   </div>
 
   <div class="scroll-hint">
@@ -554,6 +601,8 @@
     <div class="scroll-chevron"></div>
   </div>
 </section>
+
+ 
 
 <div class="gold-sep"></div>
 
@@ -565,7 +614,7 @@
 
     <span class="section-tag">Encuesta de seguimiento</span>
     <h2 class="section-title">Cuéntanos sobre ti</h2>
-    <p class="section-body">Cuatro preguntas. Menos de dos minutos.<br>Quien elige Park Country ya sabe lo que quiere. Ayúdanos a entenderlo mejor.</p>
+    <p class="section-body">Cuatro preguntas. Menos de dos minutos.<br>Tu perspectiva hace la diferencia.</p>
 
     <div class="survey-card">
 
@@ -586,15 +635,15 @@
         <div id="step-1" class="fade-up">
           <p class="question-text">¿Qué factor es más importante para ti al elegir un departamento?</p>
           <div class="options-list" id="q1-options">
-            <button type="button" class="option-btn" data-q="1" data-v="Precio" onclick="selectOption(this,1)"><span class="radio-dot"></span>Precio</button>
-            <button type="button" class="option-btn" data-q="1" data-v="Ubicación" onclick="selectOption(this,1)"><span class="radio-dot"></span>Ubicación</button>
-            <button type="button" class="option-btn" data-q="1" data-v="Amenidades" onclick="selectOption(this,1)"><span class="radio-dot"></span>Amenidades</button>
-            <button type="button" class="option-btn" data-q="1" data-v="Tamaño / distribución" onclick="selectOption(this,1)"><span class="radio-dot"></span>Tamaño / distribución</button>
-            <button type="button" class="option-btn" data-q="1" data-v="Plusvalía / inversión" onclick="selectOption(this,1)"><span class="radio-dot"></span>Plusvalía / inversión</button>
-            <button type="button" class="option-btn" data-q="1" data-v="Planes de financiamiento" onclick="selectOption(this,1)"><span class="radio-dot"></span>Planes de financiamiento</button>
+            <button class="option-btn" data-q="1" data-v="Precio" onclick="selectOption(this,1)"><span class="radio-dot"></span>Precio</button>
+            <button class="option-btn" data-q="1" data-v="Ubicación" onclick="selectOption(this,1)"><span class="radio-dot"></span>Ubicación</button>
+            <button class="option-btn" data-q="1" data-v="Amenidades" onclick="selectOption(this,1)"><span class="radio-dot"></span>Amenidades</button>
+            <button class="option-btn" data-q="1" data-v="Tamaño / distribución" onclick="selectOption(this,1)"><span class="radio-dot"></span>Tamaño / distribución</button>
+            <button class="option-btn" data-q="1" data-v="Plusvalía / inversión" onclick="selectOption(this,1)"><span class="radio-dot"></span>Plusvalía / inversión</button>
+            <button class="option-btn" data-q="1" data-v="Planes de financiamiento" onclick="selectOption(this,1)"><span class="radio-dot"></span>Planes de financiamiento</button>
           </div>
           <div class="nav-row">
-            <button type="button" id="next-1" class="cta-btn" disabled onclick="goNext(2)">Siguiente</button>
+            <button id="next-1" class="cta-btn" disabled onclick="goNext(2)">Siguiente</button>
           </div>
         </div>
 
@@ -602,16 +651,16 @@
         <div id="step-2" class="hidden">
           <p class="question-text">¿Qué factor le impidió agendar su visita a nuestro showroom?</p>
           <div class="options-list" id="q2-options">
-            <button type="button" class="option-btn" data-q="2" data-v="Compromisos actuales" onclick="selectOption(this,2)"><span class="radio-dot"></span>Mis compromisos actuales me impiden asistir.</button>
-            <button type="button" class="option-btn" data-q="2" data-v="Rango de inversión excede presupuesto" onclick="selectOption(this,2)"><span class="radio-dot"></span>El rango de inversión excede mi presupuesto.</button>
-            <button type="button" class="option-btn" data-q="2" data-v="Evaluando otras opciones" onclick="selectOption(this,2)"><span class="radio-dot"></span>Aún me encuentro evaluando otras opciones.</button>
-            <button type="button" class="option-btn" data-q="2" data-v="Requiero más información" onclick="selectOption(this,2)"><span class="radio-dot"></span>Requiero más información antes de asistir.</button>
-            <button type="button" class="option-btn" data-q="2" data-v="Ubicación / traslado inconveniente" onclick="selectOption(this,2)"><span class="radio-dot"></span>La ubicación o el traslado son un inconveniente.</button>
-            <button type="button" class="option-btn" data-q="2" data-v="Otro motivo" onclick="selectOption(this,2)"><span class="radio-dot"></span>Otro motivo.</button>
+            <button class="option-btn" data-q="2" data-v="Compromisos actuales" onclick="selectOption(this,2)"><span class="radio-dot"></span>Mis compromisos actuales me impiden asistir.</button>
+            <button class="option-btn" data-q="2" data-v="Rango de inversión excede presupuesto" onclick="selectOption(this,2)"><span class="radio-dot"></span>El rango de inversión excede mi presupuesto.</button>
+            <button class="option-btn" data-q="2" data-v="Evaluando otras opciones" onclick="selectOption(this,2)"><span class="radio-dot"></span>Aún me encuentro evaluando otras opciones.</button>
+            <button class="option-btn" data-q="2" data-v="Requiero más información" onclick="selectOption(this,2)"><span class="radio-dot"></span>Requiero más información antes de asistir.</button>
+            <button class="option-btn" data-q="2" data-v="Ubicación / traslado inconveniente" onclick="selectOption(this,2)"><span class="radio-dot"></span>La ubicación o el traslado son un inconveniente.</button>
+            <button class="option-btn" data-q="2" data-v="Otro motivo" onclick="selectOption(this,2)"><span class="radio-dot"></span>Otro motivo.</button>
           </div>
           <div class="nav-row has-back">
-            <button type="button" class="back-btn" onclick="goBack(1)">← Anterior</button>
-            <button type="button" id="next-2" class="cta-btn" disabled onclick="goNext(3)">Siguiente</button>
+            <button class="back-btn" onclick="goBack(1)">← Anterior</button>
+            <button id="next-2" class="cta-btn" disabled onclick="goNext(3)">Siguiente</button>
           </div>
         </div>
 
@@ -619,15 +668,15 @@
         <div id="step-3" class="hidden">
           <p class="question-text">¿Qué aspecto habría sido determinante para agendar su visita al showroom?</p>
           <div class="options-list" id="q3-options">
-            <button type="button" class="option-btn" data-q="3" data-v="Beneficios y condiciones especiales de preventa" onclick="selectOption(this,3)"><span class="radio-dot"></span>Beneficios y condiciones especiales de preventa.</button>
-            <button type="button" class="option-btn" data-q="3" data-v="Planes de pago e inversión" onclick="selectOption(this,3)"><span class="radio-dot"></span>Planes de pago e inversión.</button>
-            <button type="button" class="option-btn" data-q="3" data-v="Análisis de plusvalía" onclick="selectOption(this,3)"><span class="radio-dot"></span>Análisis de plusvalía frente a otros desarrollos.</button>
-            <button type="button" class="option-btn" data-q="3" data-v="Experiencias de propietarios" onclick="selectOption(this,3)"><span class="radio-dot"></span>Experiencias de propietarios.</button>
-            <button type="button" class="option-btn" data-q="3" data-v="Inventario y precios actualizados" onclick="selectOption(this,3)"><span class="radio-dot"></span>Inventario y precios actualizados.</button>
+            <button class="option-btn" data-q="3" data-v="Beneficios y condiciones especiales de preventa" onclick="selectOption(this,3)"><span class="radio-dot"></span>Beneficios y condiciones especiales de preventa.</button>
+            <button class="option-btn" data-q="3" data-v="Planes de pago e inversión" onclick="selectOption(this,3)"><span class="radio-dot"></span>Planes de pago e inversión.</button>
+            <button class="option-btn" data-q="3" data-v="Análisis de plusvalía" onclick="selectOption(this,3)"><span class="radio-dot"></span>Análisis de plusvalía frente a otros desarrollos.</button>
+            <button class="option-btn" data-q="3" data-v="Experiencias de propietarios" onclick="selectOption(this,3)"><span class="radio-dot"></span>Experiencias de propietarios.</button>
+            <button class="option-btn" data-q="3" data-v="Inventario y precios actualizados" onclick="selectOption(this,3)"><span class="radio-dot"></span>Inventario y precios actualizados.</button>
           </div>
           <div class="nav-row has-back">
-            <button type="button" class="back-btn" onclick="goBack(2)">← Anterior</button>
-            <button type="button" id="next-3" class="cta-btn" disabled onclick="goNext(4)">Siguiente</button>
+            <button class="back-btn" onclick="goBack(2)">← Anterior</button>
+            <button id="next-3" class="cta-btn" disabled onclick="goNext(4)">Siguiente</button>
           </div>
         </div>
 
@@ -635,14 +684,14 @@
         <div id="step-4" class="hidden">
           <p class="question-text">¿Desea que un asesor le contacte para profundizar en algún detalle específico?</p>
           <div class="options-list" id="q4-options">
-            <button type="button" class="option-btn" data-q="4" data-v="Sí, vía telefónica" onclick="selectOption(this,4)"><span class="radio-dot"></span>Sí, vía telefónica.</button>
-            <button type="button" class="option-btn" data-q="4" data-v="Sí, por WhatsApp" onclick="selectOption(this,4)"><span class="radio-dot"></span>Sí, por WhatsApp.</button>
-            <button type="button" class="option-btn" data-q="4" data-v="Sí, por correo electrónico" onclick="selectOption(this,4)"><span class="radio-dot"></span>Sí, por correo electrónico.</button>
-            <button type="button" class="option-btn" data-q="4" data-v="No por el momento" onclick="selectOption(this,4)"><span class="radio-dot"></span>No por el momento.</button>
+            <button class="option-btn" data-q="4" data-v="Sí, vía telefónica" onclick="selectOption(this,4)"><span class="radio-dot"></span>Sí, vía telefónica.</button>
+            <button class="option-btn" data-q="4" data-v="Sí, por WhatsApp" onclick="selectOption(this,4)"><span class="radio-dot"></span>Sí, por WhatsApp.</button>
+            <button class="option-btn" data-q="4" data-v="Sí, por correo electrónico" onclick="selectOption(this,4)"><span class="radio-dot"></span>Sí, por correo electrónico.</button>
+            <button class="option-btn" data-q="4" data-v="No por el momento" onclick="selectOption(this,4)"><span class="radio-dot"></span>No por el momento.</button>
           </div>
           <div class="nav-row has-back">
-            <button type="button" class="back-btn" onclick="goBack(3)">← Anterior</button>
-            <button type="button" id="next-4" class="cta-btn" disabled onclick="submitSurvey()">Enviar respuestas</button>
+            <button class="back-btn" onclick="goBack(3)">← Anterior</button>
+            <button id="next-4" class="cta-btn" disabled onclick="submitSurvey()">Enviar respuestas</button>
           </div>
         </div>
 
@@ -659,7 +708,7 @@
             <div class="gold-sep-full" style="width:36px; margin:0 auto 22px;"></div>
             <h3 class="thanks-title">Gracias por tu tiempo</h3>
             <p class="thanks-body">
-              Tu perspectiva nos ayuda a construir a la altura de Country Club. Si seleccionaste ser contactado, un asesor se comunicará contigo a la brevedad.
+              Tus respuestas nos ayudan a mejorar tu experiencia Be Grand®. Si seleccionaste ser contactado, un asesor se comunicará contigo a la brevedad.
             </p>
             <div class="thanks-rule"></div>
           </div>
@@ -670,12 +719,15 @@
   </div><!-- /container -->
 </main>
 
+<!-- ══════════════════════════════════
+     FOOTER
+══════════════════════════════════════ -->
 <div class="gold-sep"></div>
-<footer class="bg-black">
-	 <span class="w-full flex justify-center">
-	   <img src="https://image.campaigns.begrand.mx/lib/fe301570756405797c1379/m/1/9b511c26-2a37-4d8d-bb5d-8b4eead55f26.jpg" alt="Be Grand® by Corman" height="80"  class="h-[80px]"    >
-  </span>
-  <p class="footer-brand">Be Grand® · Park Country · Guadalajara</p>
+<footer>
+<span class="w-full flex justify-center">
+    <img src="https://image.campaigns.begrand.mx/lib/fe301570756405797c1379/m/1/9b511c26-2a37-4d8d-bb5d-8b4eead55f26.jpg" style="height: 80px;">
+</span>
+  <p class="footer-brand">Be Grand® · Derechos reservados 2025</p>
   <p class="footer-legal">Los elementos e imágenes son ilustrativos. Consulta a tu asesor.</p>
 </footer>
 
@@ -715,15 +767,11 @@
   }
 
   function submitSurvey() {
-    document.getElementById('progress-fill').style.width = '100%';
-    document.getElementById('pct-label').textContent = '100%';
-    document.getElementById('step-label').textContent = 'Pregunta 4 de 4';
-    setTimeout(() => {
-      hide('step-4');
-      hide('progress-section');
-      show('step-thanks');
-      smoothTop();
-    }, 400);
+    hide('step-4');
+    hide('progress-section');
+    show('step-thanks');
+    smoothTop();
+    console.log('Survey answers:', answers);
   }
 
   function hide(id) {
@@ -745,14 +793,18 @@
     document.querySelector('.survey-section')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
-  // Ken Burns: cycle 3 slides
+  // Ken Burns: manually cycle 3 slides
   (function() {
     const slides = document.querySelectorAll('.img-slide');
     let current = 0;
     const interval = 7800;
 
+    slides.forEach((s, i) => {
+      s.style.cssText = 'position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity 1.8s ease;will-change:transform,opacity;';
+    });
+
     function showSlide(idx) {
-      slides.forEach((s) => {
+      slides.forEach((s, i) => {
         s.style.opacity = '0';
         s.style.transform = 'scale(1.1)';
         s.style.transition = 'opacity 1.8s ease, transform 8s ease';
