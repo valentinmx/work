@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Be Grand® Park Country · Agenda tu visita</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            gold:     '#8a9597',
+            'gold-lt':'#d4b97a',
+            dark:     '#090c10',
+            charcoal: '#14181f',
+            ink:      '#262a31',
+            muted:    '#6a7080',
+            urban:    '#e8eaee',
+            cream:    '#f0f1f4',
+            slate:    '#1e2535',
+          },
+          fontFamily: {
+            sans:    ['Hanken Grotesk','sans-serif'],
+            display: ['Hanken Grotesk','sans-serif'],
+          },
+          keyframes: {
+            kb1:{
+              '0%':  {opacity:'0',transform:'scale(1.1) translate(1%,-1%)'},
+              '6%':  {opacity:'1'},
+              '30%': {opacity:'1',transform:'scale(1.0) translate(-1%,0.5%)'},
+              '36%': {opacity:'0'},
+              '100%':{opacity:'0'},
+            },
+            kb2:{
+              '0%':  {opacity:'0'},
+              '30%': {opacity:'0',transform:'scale(1.08) translate(-1.5%,1%)'},
+              '36%': {opacity:'1'},
+              '64%': {opacity:'1',transform:'scale(1.0) translate(1%,-0.5%)'},
+              '70%': {opacity:'0'},
+              '100%':{opacity:'0'},
+            },
+            kb3:{
+              '0%':  {opacity:'0'},
+              '62%': {opacity:'0',transform:'scale(1.12) translate(0%,1.5%)'},
+              '68%': {opacity:'1'},
+              '94%': {opacity:'1',transform:'scale(1.0) translate(-0.5%,-0.5%)'},
+              '100%':{opacity:'0'},
+            },
+            heroIn:{from:{opacity:'0',transform:'translateY(30px)'},to:{opacity:'1',transform:'translateY(0)'}},
+            pulse:{'0%,100%':{opacity:'.4'},'50%':{opacity:'.85'}},
+            ring:{'0%,100%':{boxShadow:'0 0 0 0 rgba(184,154,94,0.35)'},'50%':{boxShadow:'0 0 0 14px rgba(184,154,94,0)'}},
+            grain:{
+              '0%,100%':{transform:'translate(0,0)'},'10%':{transform:'translate(-2%,-3%)'},
+              '20%':{transform:'translate(3%,2%)'},'30%':{transform:'translate(-1%,4%)'},
+              '40%':{transform:'translate(4%,-1%)'},'50%':{transform:'translate(-3%,1%)'},
+              '60%':{transform:'translate(2%,-4%)'},'70%':{transform:'translate(-4%,3%)'},
+              '80%':{transform:'translate(1%,-2%)'},'90%':{transform:'translate(3%,4%)'},
+            },
+            decoLine:{
+              from:{transform:'scaleY(0)',transformOrigin:'top'},
+              to:  {transform:'scaleY(1)',transformOrigin:'top'},
+            },
+          },
+          animation:{
+            kb1:'kb1 30s ease-in-out infinite',
+            kb2:'kb2 30s ease-in-out infinite',
+            kb3:'kb3 30s ease-in-out infinite',
+            heroIn:'heroIn 1.6s cubic-bezier(0.22,1,0.36,1) both',
+            pulse:'pulse 2.8s ease-in-out infinite',
+            ring:'ring 2.4s ease-in-out infinite',
+            grain:'grain 0.45s steps(1) infinite',
+            decoLine:'decoLine 1.8s cubic-bezier(0.22,1,0.36,1) 0.4s both',
+          },
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body{font-family:'Hanken Grotesk', sans-serif;font-weight:300;}
+
+    .grain-overlay::after{
+      content:'';position:absolute;inset:-60%;width:220%;height:220%;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      opacity:0.038;animation:grain 0.45s steps(1) infinite;pointer-events:none;z-index:15;
+    }
+    .letterbox::before,.letterbox::after{
+      content:'';position:absolute;left:0;right:0;height:5.5vh;background:#090c10;z-index:14;pointer-events:none;
+    }
+    .letterbox::before{top:0;}.letterbox::after{bottom:0;}
+
+    .cal-day{aspect-ratio:1;display:flex;align-items:center;justify-content:center;border-radius:2px;border:1px solid transparent;transition:all .18s;background:none;cursor:pointer;font-family:'Hanken Grotesk', sans-serif;font-size:.9rem;color:#7e7e7e; font-weight: 600}
+    .cal-day:hover:not(.past){border-color:#2c2a25;background:rgba(30,37,53,.05); color:#fff;font-weight: 800;}
+    .cal-day.selected{background:linear-gradient(135deg,#2c2a25,#2c2a25);color:#fff;border-color:#2c2a25; font-weight: 800;}
+    .cal-day.today{color:#2c2a25;font-weight:400 !important;}
+    .cal-day.past{color:#ccc;cursor:default;}
+
+    .time-btn{padding:.6rem .25rem;border:1px solid #7E7E7E;border-radius:2px;background:#2c2a25;font-family:'Hanken Grotesk', sans-serif;font-size:.72rem;color:#fff;cursor:pointer;text-align:center;transition:all .18s;}
+    .time-btn:hover{border-color:#fff;}
+    .time-btn.selected{background:linear-gradient(135deg,#12110e,#12110e);color:#fff;border-color:#2c2a25;}
+
+    input:focus,select:focus{outline:none;border-color:#2c2a25 !important;box-shadow:0 0 0 3px rgba(184,154,94,.09);}
+  </style>
+</head>
+
+<body class="bg-dark text-ink antialiased">
+
+<!-- ══════ HERO ══════ -->
+<section class="relative overflow-hidden grain-overlay" style="height:70svh;min-height:640px;max-height:960px;">
+
+  <div class="animate-kb1 absolute inset-0 bg-cover will-change-transform opacity-0"
+       style="background-image:url('slide-01.jpg');background-position:center 80%;"></div>
+  <div class="animate-kb2 absolute inset-0 bg-cover bg-center will-change-transform opacity-0"
+       style="background-image:url('slide-02.jpg');"></div>
+  <div class="animate-kb3 absolute inset-0 bg-cover will-change-transform opacity-0"
+       style="background-image:url('slide-03.jpg');background-position:center 30%;"></div>
+
+  <!-- Vignette radial cinemática -->
+  <div class="absolute inset-0 z-[4]" style="background:radial-gradient(ellipse at center,transparent 20%,rgba(9,12,16,0.82) 100%);"></div>
+  <!-- Gradiente simétrico vertical -->
+  <div class="absolute inset-0 z-[5]" style="background:linear-gradient(180deg,rgba(9,12,16,.60) 0%,rgba(9,12,16,.12) 38%,rgba(9,12,16,.58) 72%,rgba(9,12,16,.98) 100%);"></div>
+  <!-- Glow cálido inferior central — Park Country -->
+  <div class="absolute inset-0 z-[6]" style="background:radial-gradient(ellipse at 50% 110%,rgba(30,37,53,.50) 0%,transparent 55%);"></div>
+
+  <!-- Línea dorada decorativa -->
+  <div class="animate-decoLine absolute top-0 left-1/2 z-[7] w-px h-20 -translate-x-1/2"
+       style="background:linear-gradient(to bottom,transparent,rgba(184,154,94,.55));"></div>
+
+  <div class="animate-heroIn absolute inset-0 z-[7] flex flex-col justify-end px-[7vw] pb-24">
+
+    <img src="https://image.campaigns.begrand.mx/lib/fe301570756405797c1379/m/1/9b7e2dcf-a2b7-46a6-b8b0-720f1e0aa4ab.jpg"
+         alt="Be Grand® Park Country"
+         class="h-48 w-auto object-contain object-left mb-7 mt-0"
+         style="filter:drop-shadow(0 2px 12px rgba(0,0,0,.5));" />
+
+    <p class="text-gold mb-3 tracking-[.30em] uppercase" style="font-size:.88rem;font-weight:400;">
+      Park Country · Guadalajara
+    </p>
+
+   
+
+    <p class="text-white/60 mb-9 leading-relaxed" style="font-size:1.2rem;max-width:410px; ">
+      Agenda tu visita al showroom. Hay departamentos con vistas excepcionales que no estarán disponibles por mucho tiempo.
+    </p>
+
+    <a href="#formulario"
+       class="inline-block border border-gold/60 text-gold-lt uppercase tracking-[.24em] px-10 py-3.5 transition-all duration-300 hover:bg-gold/10 hover:border-gold-lt self-start"
+       style="font-size:.65rem;">
+      Reservar mi fecha
+    </a>
+  </div>
+
+  <!-- Scroll hint izquierda inferior -->
+  <div class="animate-pulse absolute bottom-8 left-[7vw] z-[9] flex items-center gap-3">
+    <div class="w-9 h-px" style="background:linear-gradient(90deg,rgba(184,154,94,.55),transparent);"></div>
+    <span class="text-gold/50 tracking-[.22em] uppercase" style="font-size:.52rem;">Descubrir</span>
+  </div>
+</section>
+
+<div class="w-full h-px opacity-28" style="background:linear-gradient(90deg,transparent,#b89a5e 30%,#b89a5e 70%,transparent);"></div>
+
+<!-- ══════ COPY ══════ -->
+<section class="py-16 px-[7vw]" style="background:#201e18;">
+  <div class="max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
+    <div>
+      <span class="block text-gold tracking-[.30em] uppercase mb-4" style="font-size:.88rem; font-weight:400;">Be Grand® Park Country · Guadalajara</span>
+      <h2 class="font-display text-white leading-snug mb-5" style="font-size:clamp(1.5rem,2.8vw,1.8rem);font-weight:300;">
+        Una residencia diseñada<br>para quien ya no<br><em>necesita explicar sus gustos.</em>
+      </h2>
+      <p class="text-white leading-loose" style="font-size:.9rem;letter-spacing:.03em; font-weight:400;">
+        La línea Park — la gama de gran lujo de Be Grand® — llega a la colonia más exclusiva de Guadalajara. Arquitectura de autor en Country Club. El prospecto de Park Country conoce otras propiedades — y eligió ésta.
+      </p>
+    </div>
+    <div class="flex flex-col gap-6 pt-1">
+      <div class="flex gap-4 items-start">
+        <span class="font-display leading-none shrink-0" style="font-size:1.5rem;color:#fff;">01</span>
+        <div><p class="text-muted mb-1" style="font-size:.78rem;font-weight:400;">Departamentos desde 114 m² hasta 324 m²</p><p class="text-white leading-relaxed" style="font-size:.78rem;">2 y 3 recámaras. Línea Park. Espacios que no necesitan adjetivos.</p></div>
+      </div>
+      <div class="flex gap-4 items-start">
+        <span class="font-display leading-none shrink-0" style="font-size:1.5rem;color:#fff;">02</span>
+        <div><p class="text-muted mb-1" style="font-size:.78rem;font-weight:400;">En Country Club — la colonia más exclusiva de Guadalajara</p><p class="text-white" style="font-size:.78rem;">Av. de las Américas 1246. A minutos de todo lo que importa en esta ciudad.</p></div>
+      </div>
+      <div class="flex gap-4 items-start">
+        <span class="font-display leading-none shrink-0" style="font-size:1.5rem;color:#fff;">03</span>
+        <div><p class="text-muted mb-1" style="font-size:.78rem;font-weight:400;">Amenidades de gran lujo</p><p class="text-white leading-relaxed" style="font-size:.78rem;">Todo diseñado para quien vive Guadalajara — no solo la habita.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="w-full h-px opacity-20" style="background:linear-gradient(90deg,transparent,#b89a5e 30%,#b89a5e 70%,transparent);"></div>
+
+<!-- ══════ FORMULARIO ══════ -->
+<section id="formulario" class="py-16 px-[7vw]" style="background: #2c2a25;;">
+  <div class="max-w-xl mx-auto">
+    <span class="block text-center text-white tracking-[.30em] uppercase mb-3" style="font-size:1rem; font-weight:400;">Agenda tu visita</span>
+    <h2 class="font-display text-white text-center leading-snug mb-2" style="font-size:clamp(1.9rem,3.5vw,2.8rem);font-weight:300;">Reserva tu recorrido</h2>
+    <p class="text-center text-gold mb-14 leading-loose" style="font-size:.95rem;letter-spacing:.05em; font-weight:400;">
+      Elige cuándo quieres verlo.<br>Quien elige Park Country ya sabe lo que quiere.
+    </p>
+
+    <div class="bg-black border border-white/20 rounded-sm px-10 py-11" style="box-shadow:0 2px 40px rgba(0,0,0,.06),inset 0 1px 0 rgba(184,154,94,.1);">
+      <div id="form-fields">
+
+        <div class="grid grid-cols-2 gap-4 mb-4">
+          <div class="flex flex-col gap-1.5">
+            <label class="text-white tracking-[.18em] uppercase" style="font-size:.6rem;font-weight:400;">Nombre</label>
+            <input id="nombre" type="text" placeholder="Tu nombre" class="bg-[#2c2a25] border border-[#d5d8df] rounded-sm px-3.5 py-3 text-white w-full transition-all" style="font-family:'Hanken Grotesk', sans-serif;font-size:.82rem;font-weight:300;" />
+          </div>
+          <div class="flex flex-col gap-1.5">
+            <label class="text-muted tracking-[.18em] uppercase" style="font-size:.6rem;font-weight:400;">Apellido</label>
+            <input id="apellido" type="text" placeholder="Tu apellido" class="bg-[#2c2a25] border border-[#d5d8df] rounded-sm px-3.5 py-3 text-white w-full transition-all" style="font-family:'Hanken Grotesk', sans-serif;font-size:.82rem;font-weight:300;" />
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-1.5 mb-4">
+          <label class="text-white tracking-[.18em] uppercase" style="font-size:.6rem;font-weight:400;">Teléfono</label>
+          <input id="tel" type="tel" placeholder="33 0000 0000" class="bg-[#2c2a25] border border-[#d5d8df] rounded-sm px-3.5 py-3 text-white w-full transition-all" style="font-family:'Hanken Grotesk', sans-serif;font-size:.82rem;font-weight:300;" />
+        </div>
+
+        <div class="flex flex-col gap-1.5 mb-4">
+          <label class="text-white tracking-[.18em] uppercase" style="font-size:.6rem;font-weight:400;">Correo electrónico</label>
+          <input id="email" type="email" placeholder="tucorreo@email.com" class="bg-[#2c2a25] border border-[#d5d8df] rounded-sm px-3.5 py-3 text-white w-full transition-all" style="font-family:'Hanken Grotesk', sans-serif;font-size:.82rem;font-weight:300;" />
+        </div>
+
+        <div class="w-full h-px my-6" style="background:rgba(184,154,94,.14);"></div>
+
+        <div class="mb-5">
+          <span class="block text-white tracking-[.18em] uppercase mb-3" style="font-size:.6rem;font-weight:400;">Selecciona una fecha</span>
+          <div class="flex items-center justify-between mb-3">
+            <button type="button" id="prev-month" class="w-8 h-8 flex items-center justify-center border border-[#d5d8df] rounded-sm text-gold hover:border-gold transition-colors" style="background:none;">&#8592;</button>
+            <span id="month-label" class="font-display text-charcoal tracking-wide" style="font-size:1rem; color:#fff;">—</span>
+            <button type="button" id="next-month" class="w-8 h-8 flex items-center justify-center border border-[#d5d8df] rounded-sm text-gold hover:border-gold transition-colors" style="background:none;">&#8594;</button>
+          </div>
+          <div id="cal-grid" class="grid gap-1" style="grid-template-columns:repeat(7,1fr);"></div>
+        </div>
+
+        <div class="mb-5">
+          <span class="block text-muted tracking-[.18em] uppercase mb-3" style="font-size:.6rem; font-weight:400;">Selecciona un horario</span>
+          <div class="grid grid-cols-4 gap-2">
+            <button type="button" class="time-btn" data-t="10:00">10:00</button>
+            <button type="button" class="time-btn" data-t="11:00">11:00</button>
+            <button type="button" class="time-btn" data-t="12:00">12:00</button>
+            <button type="button" class="time-btn" data-t="13:00">13:00</button>
+            <button type="button" class="time-btn" data-t="15:00">15:00</button>
+            <button type="button" class="time-btn" data-t="16:00">16:00</button>
+            <button type="button" class="time-btn" data-t="17:00">17:00</button>
+            <button type="button" class="time-btn" data-t="18:00">18:00</button>
+          </div>
+        </div>
+
+        <div class="w-full h-px my-6" style="background:rgba(184,154,94,.14);"></div>
+
+        <button type="button" onclick="submitForm()" class="w-full py-4 text-white uppercase tracking-[.24em] rounded-sm transition-all duration-300 hover:-translate-y-0.5 hover:brightness-110"
+                style="font-family:'Hanken Grotesk', sans-serif;font-size:.68rem; font-weight:400; background:linear-gradient(135deg,#7f7f7f,#f7f7f7);box-shadow:0 2px 16px rgba(184,154,94,.25);">
+          Confirmar mi visita
+        </button>
+      </div>
+
+      <div id="thanks" class="hidden text-center py-12">
+        <div class="animate-ring w-16 h-16 rounded-full border border-gold flex items-center justify-center mx-auto mb-5">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#b89a5e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <div class="w-9 h-px mx-auto mb-5 opacity-30" style="background:#b89a5e;"></div>
+        <h3 class="font-display text-charcoal mb-3" style="font-size:2rem;font-weight:300; color:#fff">Visita confirmada</h3>
+        <p id="thanks-text" class="text-muted leading-loose mx-auto" style="font-size:.78rem;max-width:300px;"></p>
+        <div class="w-9 h-px mx-auto mt-5 opacity-30" style="background:#b89a5e;"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="w-full h-px opacity-25" style="background:linear-gradient(90deg,transparent,#b89a5e 30%,#b89a5e 70%,transparent);"></div>
+<footer class="bg-black px-[7vw] py-7 flex flex-wrap justify-between items-center gap-3">
+  <span class="w-full flex justify-center">
+	   <img src="https://image.campaigns.begrand.mx/lib/fe301570756405797c1379/m/1/9b511c26-2a37-4d8d-bb5d-8b4eead55f26.jpg" alt="Be Grand® by Corman" height="80"  class="h-[80px]"    >
+  </span>
+  <span class="w-full text-center text-white/70 tracking-[.20em] uppercase" style="font-size:.65rem;">Be Grand® Park Country · Guadalajara</span>
+  <span class="w-full text-center text-white/35" style="font-size:.6rem;">Imágenes e información de referencia. Consulta a tu asesor.</span>
+</footer>
+
+<script>
+  const MONTHS=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+  const DAYS=['Do','Lu','Ma','Mi','Ju','Vi','Sa'];
+  let viewDate=new Date(),selDate=null,selTime=null;
+  function renderCal(){
+    const y=viewDate.getFullYear(),m=viewDate.getMonth();
+    document.getElementById('month-label').textContent=MONTHS[m]+' '+y;
+    const grid=document.getElementById('cal-grid');grid.innerHTML='';
+    DAYS.forEach(d=>{const el=document.createElement('div');el.style.cssText='text-align:center;font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;color:#6a7080;padding:.25rem 0;';el.textContent=d;grid.appendChild(el);});
+    const first=new Date(y,m,1).getDay(),total=new Date(y,m+1,0).getDate();
+    const today=new Date();today.setHours(0,0,0,0);
+    for(let i=0;i<first;i++){grid.appendChild(document.createElement('div'));}
+    for(let d=1;d<=total;d++){
+      const date=new Date(y,m,d);const btn=document.createElement('button');
+      btn.className='cal-day';btn.textContent=d;
+      if(date<today)btn.classList.add('past');
+      else if(date.toDateString()===today.toDateString())btn.classList.add('today');
+      if(selDate&&date.toDateString()===selDate.toDateString())btn.classList.add('selected');
+      if(!btn.classList.contains('past'))btn.addEventListener('click',()=>{selDate=date;renderCal();});
+      grid.appendChild(btn);
+    }
+  }
+  document.getElementById('prev-month').addEventListener('click',()=>{viewDate.setMonth(viewDate.getMonth()-1);renderCal();});
+  document.getElementById('next-month').addEventListener('click',()=>{viewDate.setMonth(viewDate.getMonth()+1);renderCal();});
+  renderCal();
+  document.querySelectorAll('.time-btn').forEach(btn=>{
+    btn.addEventListener('click',()=>{document.querySelectorAll('.time-btn').forEach(b=>b.classList.remove('selected'));btn.classList.add('selected');selTime=btn.dataset.t;});
+  });
+  function submitForm(){
+    const nombre=document.getElementById('nombre').value.trim(),email=document.getElementById('email').value.trim();
+    if(!nombre||!email||!selDate||!selTime){alert('Por favor completa tu nombre, correo, fecha y horario.');return;}
+    const ds=selDate.toLocaleDateString('es-MX',{weekday:'long',day:'numeric',month:'long'});
+    document.getElementById('thanks-text').textContent='Tu recorrido está agendado para el '+ds+' a las '+selTime+' hrs. Un asesor Be Grand® te confirmará los detalles.';
+    document.getElementById('form-fields').classList.add('hidden');
+    document.getElementById('thanks').classList.remove('hidden');
+  }
+</script>
+</body>
+</html>
