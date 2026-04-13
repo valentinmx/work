@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encuesta de Satisfacción - OneCard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Animaciones personalizadas */
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .animate-slide-in {
+            animation: slideIn 0.6s ease-out;
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        /* Gradientes personalizados */
+        .gradient-hero {
+            background: linear-gradient(135deg, #00A8E8 0%, #0088C7 100%);
+        }
+
+        .card-shadow {
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Estilos para inputs */
+        input[type="range"] {
+            accent-color: #00A8E8;
+        }
+
+        .radio-custom:checked {
+            accent-color: #00A8E8;
+        }
+
+        .text-onecard-blue {
+            color: #00A8E8;
+        }
+
+        .bg-onecard-blue {
+            background-color: #00A8E8;
+        }
+
+        .hover-onecard:hover {
+            background-color: #0088C7;
+        }
+
+        textarea:focus,
+        input[type="text"]:focus {
+            border-color: #00A8E8 !important;
+            box-shadow: 0 0 0 3px rgba(0, 168, 232, 0.1) !important;
+        }
+
+        label {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header/Hero Section -->
+    <div class="gradient-hero text-white py-12 md:py-20 animate-fade-in">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <!-- Logo OneCard -->
+                <div class="flex justify-center mb-6 animate-slide-in">
+                    <img
+                        src="https://image.comms.onecard.mx/lib/fe31117371640574751577/m/1/67dc4b7f-3a65-44e1-8119-af792ed33226.png"
+                        alt="OneCard Logo"
+                        class="h-20 md:h-24 object-contain"
+                    >
+                </div>
+                <h1 class="text-2xl md:text-3xl font-bold mb-4 animate-slide-in" style="animation-delay: 0.05s">
+                    Encuesta de Satisfacción
+                </h1>
+                <p class="text-base md:text-lg text-white text-opacity-90 max-w-2xl mx-auto animate-slide-in" style="animation-delay: 0.2s">
+                    Tu opinión nos ayuda a mejorar continuamente. Dedica 2 minutos para compartir tu experiencia en el proceso de onboarding y activación.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="bg-white rounded-lg card-shadow p-8 md:p-12">
+            <!-- Intro Text -->
+            <div class="mb-12 text-center">
+                <p class="text-gray-600 text-lg">
+                    Tu opinión es muy importante para nosotros. Esta encuesta nos ayudará a mejorar tu experiencia con OneCard.
+                </p>
+            </div>
+
+            <!-- Form -->
+            <form id="surveyForm" class="space-y-12">
+                <!-- Pregunta 1: Escala de Satisfacción -->
+                <div class="animate-slide-in" style="animation-delay: 0.3s">
+                    <label class="block text-lg font-semibold text-gray-800 mb-6">
+                        1. En una escala del 1 al 10, ¿qué tan satisfecho estás con el proceso de alta y activación de tu cuenta?
+                    </label>
+                    <div class="flex items-center gap-4">
+                        <input
+                            type="range"
+                            id="satisfaction"
+                            name="satisfaction"
+                            min="1"
+                            max="10"
+                            value="5"
+                            class="flex-1 h-2 cursor-pointer"
+                            required
+                        >
+                        <span id="satisfactionValue" class="text-2xl font-bold text-onecard-blue min-w-12 text-right">5</span>
+                    </div>
+                    <div class="flex justify-between text-sm text-gray-500 mt-2">
+                        <span>Nada satisfecho</span>
+                        <span>Muy satisfecho</span>
+                    </div>
+                </div>
+
+                <!-- Pregunta 2: Estado Operativo -->
+                <div class="animate-slide-in" style="animation-delay: 0.4s">
+                    <label class="block text-lg font-semibold text-gray-800 mb-4">
+                        2. ¿Tu empresa ya está operando con el servicio?
+                    </label>
+                    <div class="space-y-3">
+                        <label class="flex items-center cursor-pointer">
+                            <input
+                                type="radio"
+                                name="operating"
+                                value="regular"
+                                class="radio-custom w-5 h-5"
+                                required
+                            >
+                            <span class="ml-3 text-gray-700">Sí, ya operamos de forma regular</span>
+                        </label>
+                        <label class="flex items-center cursor-pointer">
+                            <input
+                                type="radio"
+                                name="operating"
+                                value="partial"
+                                class="radio-custom w-5 h-5"
+                            >
+                            <span class="ml-3 text-gray-700">Sí, pero aún de forma parcial</span>
+                        </label>
+                        <label class="flex items-center cursor-pointer">
+                            <input
+                                type="radio"
+                                name="operating"
+                                value="not_started"
+                                class="radio-custom w-5 h-5"
+                            >
+                            <span class="ml-3 text-gray-700">No, aún no hemos comenzado</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Pregunta 3: Facilidad de Alta -->
+                <div class="animate-slide-in" style="animation-delay: 0.5s">
+                    <label class="block text-lg font-semibold text-gray-800 mb-4">
+                        3. ¿Qué tan fácil fue completar el proceso de alta de cuenta?
+                    </label>
+                    <div class="space-y-3">
+                        <label class="flex items-center cursor-pointer">
+                            <input
+                                type="radio"
+                                name="ease"
+                                value="very_easy"
+                                class="radio-custom w-5 h-5"
+                                required
+                            >
+                            <span class="ml-3 text-gray-700">Muy fácil</span>
+                        </label>
+                        <label class="flex items-center cursor-pointer">
+                            <input
+                                type="radio"
+                                name="ease"
+                                value="easy"
+                                class="radio-custom w-5 h-5"
+                            >
+                            <span class="ml-3 text-gray-700">Fácil</span>
+                        </label>
+                        <label class="flex items-center cursor-pointer">
+                            <input
+                                type="radio"
+                                name="ease"
+                                value="regular"
+                                class="radio-custom w-5 h-5"
+                            >
+                            <span class="ml-3 text-gray-700">Regular</span>
+                        </label>
+                        <label class="flex items-center cursor-pointer">
+                            <input
+                                type="radio"
+                                name="ease"
+                                value="difficult"
+                                class="radio-custom w-5 h-5"
+                            >
+                            <span class="ml-3 text-gray-700">Difícil</span>
+                        </label>
+                        <label class="flex items-center cursor-pointer">
+                            <input
+                                type="radio"
+                                name="ease"
+                                value="very_difficult"
+                                class="radio-custom w-5 h-5"
+                            >
+                            <span class="ml-3 text-gray-700">Muy difícil</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Pregunta 4: Dificultades (Texto abierto) -->
+                <div class="animate-slide-in" style="animation-delay: 0.6s">
+                    <label class="block text-lg font-semibold text-gray-800 mb-4">
+                        4. ¿Qué fue lo más complicado durante tu activación?
+                    </label>
+                    <textarea
+                        id="difficulties"
+                        name="difficulties"
+                        rows="5"
+                        class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-opacity-50 focus:border-transparent resize-none transition-colors"
+                        style="focus:border-color: #00A8E8; focus:ring-color: rgba(0, 168, 232, 0.1);"
+                        placeholder="Cuéntanos detalladamente qué aspectos fueron complicados..."
+                        required
+                    ></textarea>
+                    <p class="text-sm text-gray-500 mt-2">
+                        <span id="charCount">0</span>/500 caracteres
+                    </p>
+                </div>
+
+                <!-- Pregunta 5: Acompañamiento CS -->
+                <div class="animate-slide-in" style="animation-delay: 0.7s">
+                    <label class="block text-lg font-semibold text-gray-800 mb-4">
+                        5. ¿Cómo calificarías el acompañamiento de tu ejecutiva de Customer Success durante el proceso de activación?
+                    </label>
+                    <div class="space-y-3">
+                        <label class="flex items-center cursor-pointer">
+                            <input
+                                type="radio"
+                                name="cs_support"
+                                value="excellent"
+                                class="radio-custom w-5 h-5"
+                                required
+                            >
+                            <span class="ml-3 text-gray-700">Excelente</span>
+                        </label>
+                        <label class="flex items-center cursor-pointer">
+                            <input
+                                type="radio"
+                                name="cs_support"
+                                value="good"
+                                class="radio-custom w-5 h-5"
+                            >
+                            <span class="ml-3 text-gray-700">Bueno</span>
+                        </label>
+                        <label class="flex items-center cursor-pointer">
+                            <input
+                                type="radio"
+                                name="cs_support"
+                                value="regular"
+                                class="radio-custom w-5 h-5"
+                            >
+                            <span class="ml-3 text-gray-700">Regular</span>
+                        </label>
+                        <label class="flex items-center cursor-pointer">
+                            <input
+                                type="radio"
+                                name="cs_support"
+                                value="poor"
+                                class="radio-custom w-5 h-5"
+                            >
+                            <span class="ml-3 text-gray-700">Malo</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Botón Submit -->
+                <div class="pt-8 border-t border-gray-200 animate-slide-in" style="animation-delay: 0.8s">
+                    <button
+                        type="submit"
+                        class="w-full bg-onecard-blue text-white font-semibold py-3 rounded-lg hover-onecard transition-all duration-200 transform hover:scale-105 cursor-pointer"
+                    >
+                        Enviar Encuesta
+                    </button>
+                    <p class="text-center text-sm text-gray-500 mt-4">
+                        Tus respuestas nos ayudarán a mejorar tu experiencia
+                    </p>
+                </div>
+            </form>
+        </div>
+
+        <!-- Footer -->
+        <div class="text-center mt-12 pb-8">
+            <p class="text-gray-600">
+                © 2024 OneCard. Todos los derechos reservados.
+            </p>
+        </div>
+    </div>
+
+    <!-- Modal de Confirmación -->
+    <div id="successModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50 p-4">
+        <div class="bg-white rounded-lg p-8 max-w-sm w-full text-center animate-slide-in">
+            <div class="mb-4">
+                <svg class="w-16 h-16 mx-auto text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+            </div>
+            <h2 class="text-2xl font-bold text-gray-800 mb-2">¡Gracias!</h2>
+            <p class="text-gray-600 mb-6">
+                Hemos recibido tu encuesta. Tu opinión es muy valiosa para nosotros.
+            </p>
+            <button
+                onclick="closeModal()"
+                class="bg-onecard-blue text-white px-6 py-2 rounded-lg hover-onecard transition-colors"
+            >
+                Cerrar
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Actualizar valor del slider
+        const satisfactionSlider = document.getElementById('satisfaction');
+        const satisfactionValue = document.getElementById('satisfactionValue');
+
+        satisfactionSlider.addEventListener('input', (e) => {
+            satisfactionValue.textContent = e.target.value;
+        });
+
+        // Contar caracteres del textarea
+        const difficultiesInput = document.getElementById('difficulties');
+        const charCount = document.getElementById('charCount');
+
+        difficultiesInput.addEventListener('input', (e) => {
+            charCount.textContent = e.target.value.length;
+            if (e.target.value.length > 500) {
+                difficultiesInput.value = difficultiesInput.value.substring(0, 500);
+                charCount.textContent = '500';
+            }
+        });
+
+        // Manejar envío del formulario
+        const form = document.getElementById('surveyForm');
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            // Recopilar datos del formulario
+            const formData = new FormData(form);
+            const data = {
+                satisfaction: formData.get('satisfaction'),
+                operating: formData.get('operating'),
+                ease: formData.get('ease'),
+                difficulties: formData.get('difficulties'),
+                cs_support: formData.get('cs_support'),
+                timestamp: new Date().toISOString()
+            };
+
+            console.log('Datos de la encuesta:', data);
+
+            // Guardar en localStorage (para desarrollo)
+            const surveys = JSON.parse(localStorage.getItem('surveys') || '[]');
+            surveys.push(data);
+            localStorage.setItem('surveys', JSON.stringify(surveys));
+
+            // Mostrar modal de éxito
+            const modal = document.getElementById('successModal');
+            modal.classList.remove('hidden');
+
+            // Resetear formulario
+            form.reset();
+            satisfactionValue.textContent = '5';
+            charCount.textContent = '0';
+        });
+
+        function closeModal() {
+            document.getElementById('successModal').classList.add('hidden');
+        }
+
+        // Cerrar modal al hacer click afuera
+        document.getElementById('successModal').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('successModal')) {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>
